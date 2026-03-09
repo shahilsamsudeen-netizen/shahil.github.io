@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shahil — Portfolio DevOps</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --accent: #0ea5e9;
+      --accent2: #7c3aed;
+      --text: #0f172a;
+      --muted: #64748b;
+      --green: #059669;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* GRID BACKGROUND */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(14,165,233,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14,165,233,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* NAV */
+    nav {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(248,250,252,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      color: var(--accent);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO — SECTION A : INTRODUCTION */
+    .hero {
+      padding: 100px 0 80px;
+      position: relative;
+    }
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 520px;
+      line-height: 1.6;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: var(--green);
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      margin-bottom: 40px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+    }
+    .btn-primary:hover {
+      background: #0284c7;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    section h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 48px;
+      letter-spacing: -0.02em;
+    }
+
+    /* SECTION B : PROJETS */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .project-title {
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .project-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: rgba(0,229,255,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(0,229,255,0.2);
+    }
+    .star-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .star-grid { grid-template-columns: 1fr; }
+    }
+    .star-item {
+      background: rgba(0,0,0,0.02);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .star-letter {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .star-content {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .project-tools {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .tool-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(124,58,237,0.1);
+      color: #a78bfa;
+      border: 1px solid rgba(124,58,237,0.2);
+    }
+
+    /* SECTION C : BOITE A OUTILS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 600px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+    .skills-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .skills-block h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .skill-item:last-child { border-bottom: none; }
+    .skill-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .skill-icon.blue { background: rgba(0,229,255,0.1); }
+    .skill-icon.purple { background: rgba(124,58,237,0.1); }
+    .skill-icon.green { background: rgba(16,185,129,0.1); }
+
+    /* FOOTER */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    footer p {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* FADE IN ANIMATION */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="container">
+      <div class="nav-logo">shahil.dev</div>
+      <ul class="nav-links">
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#outils">Compétences</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- SECTION A : INTRODUCTION -->
+  <section class="hero" style="border-top: none;">
+    <div class="container">
+      <p class="hero-tag fade-in">Portfolio · Bachelor 1 · CNAM</p>
+      <h1 class="fade-in delay-1">
+        Shahil<br/><span>DevOps</span><br/>Engineer
+      </h1>
+      <p class="hero-subtitle fade-in delay-2">
+        Étudiant en informatique spécialisé DevOps au CNAM.<br/>
+        Passionné par le développement web et l'automatisation.
+      </p>
+      <div class="hero-badge fade-in delay-2">
+        En recherche de stage — Informatique / DevOps
+      </div>
+      <div class="hero-ctas fade-in delay-3">
+        <a href="https://www.linkedin.com/in/shahilsamsudeen" class="btn btn-primary" target="_blank">
+          🔗 LinkedIn
+        </a>
+        <a href="https://github.com/shahil" class="btn btn-outline" target="_blank">
+          ⚙️ GitHub
+        </a>
+        <a href="shahilsamsudeen-CV.pdf" download="shahilsamsudeen-CV.pdf" class="btn btn-outline">
+          📄 Télécharger mon CV
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION B : PROJETS -->
+  <section id="projets">
+    <div class="container">
+      <p class="section-label">02 — Les Projets</p>
+      <h2>Ce que j'ai fait</h2>
+
+      <!-- PROJET 1 -->
+      <div class="project-card">
+        <div class="project-header">
+          <h3 class="project-title">🌐 Création d'un site web</h3>
+          <span class="project-tag">Projet personnel</span>
+        </div>
+        <div class="star-grid">
+          <div class="star-item">
+            <p class="star-letter">S — Situation</p>
+            <p class="star-content">Dans le cadre de ma formation au CNAM, j'ai souhaité mettre en pratique mes connaissances en développement web.</p>
+          </div>
+          <div class="star-item">
+            <p class="star-letter">T — Tâche</p>
+            <p class="star-content">Concevoir et développer un site web fonctionnel, responsive et structuré de A à Z.</p>
+          </div>
+          <div class="star-item">
+            <p class="star-letter">A — Action</p>
+            <p class="star-content">Développement du site en HTML et CSS : structure des pages, mise en page responsive, intégration du contenu.</p>
+          </div>
+          <div class="star-item">
+            <p class="star-letter">R — Résultat</p>
+            <p class="star-content">Un site web entièrement fonctionnel, accessible sur ordinateur et mobile, démontrant la maîtrise du HTML/CSS.</p>
+          </div>
+        </div>
+        <div class="project-tools">
+          <span class="tool-badge">HTML5</span>
+          <span class="tool-badge">CSS3</span>
+          <span class="tool-badge">Responsive Design</span>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- SECTION C : BOÎTE À OUTILS -->
+  <section id="outils">
+    <div class="container">
+      <p class="section-label">03 — La Boîte à Outils</p>
+      <h2>Mes compétences</h2>
+      <div class="skills-grid">
+
+        <!-- HARD SKILLS -->
+        <div class="skills-block">
+          <h3>⚙️ Hard Skills</h3>
+          <div class="skill-item">
+            <div class="skill-icon blue">🌐</div>
+            <span>HTML5 / CSS3</span>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon blue">💻</div>
+            <span>Langage C</span>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon purple">🔧</div>
+            <span>DevOps (en formation)</span>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon green">📊</div>
+            <span>Microsoft Excel</span>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon green">📝</div>
+            <span>Microsoft Word / PowerPoint</span>
+          </div>
+        </div>
+
+        <!-- SOFT SKILLS -->
+        <div class="skills-block">
+          <h3>🧠 Soft Skills</h3>
+          <div class="skill-item">
+            <div class="skill-icon blue">🎯</div>
+            <span>Autonomie — projet site web perso</span>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon purple">🔍</div>
+            <span>Curiosité & apprentissage rapide</span>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon green">📐</div>
+            <span>Rigueur & organisation</span>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon blue">🤝</div>
+            <span>Travail en équipe</span>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon purple">💡</div>
+            <span>Résolution de problèmes</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container" style="text-align: center;">
+      <p class="section-label" style="justify-content: center;">04 — Contact</p>
+      <h2 style="margin-bottom: 16px;">Travaillons ensemble</h2>
+      <p style="color: var(--muted); margin-bottom: 40px; font-size: 16px;">
+        Je suis disponible pour un stage en informatique / DevOps.<br/>
+        N'hésitez pas à me contacter !
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://www.linkedin.com/in/shahilsamsudeen" class="btn btn-primary" target="_blank">
+          🔗 LinkedIn
+        </a>
+        <a href="/cdn-cgi/l/email-protection#f4879c959c9d98b49199959d98da979b99" class="btn btn-outline">
+          ✉️ M'envoyer un email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Shahil — Étudiant DevOps au CNAM </p>
